@@ -386,8 +386,12 @@ function linksHTML(links){
 }
 function ordKey(t){
   if(t.status==='done')return [0,-parseInt((t.concluido_em||'0000-00-00').replace(/-/g,'')||'0',10),(t.titulo||'').toLowerCase()];
+  // PRIORIDADE PRIMEIRO (pedido do Mauricio, 19/08/2026). Antes o prazo era a
+  // chave principal e a prioridade só desempatava — com poucas tarefas com
+  // prazo, a ordem ficava praticamente aleatória. Agora: prioridade → tem
+  // prazo → dias até o prazo → título.
   const tem=t.prazo?0:1, delta=t.prazo?diasEntre(hojeLocal(),t.prazo):1e6;
-  return [tem,delta,PESO[t.prioridade]??9,(t.titulo||'').toLowerCase()];
+  return [PESO[t.prioridade]??9,tem,delta,(t.titulo||'').toLowerCase()];
 }
 function cmp(a,b){for(let i=0;i<Math.max(a.length,b.length);i++){if(a[i]===b[i])continue;return a[i]<b[i]?-1:1;}return 0;}
 function cardHTML(t){
