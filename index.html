@@ -44,7 +44,10 @@
   .st-late .n{color:var(--err)}.st-today .n{color:var(--laranja-escuro)}
   .st-week .n{color:var(--grafite-2)}.st-open .n{color:var(--grafite-3)}
   .st.zero{opacity:.45}.st.zero .n{color:var(--texto-sec)}
-  .bar{position:sticky;top:0;z-index:90;display:flex;gap:9px;align-items:center;flex-wrap:wrap;padding:13px 26px;
+  /* Sem position:sticky de propósito (pedido do Mauricio, 19/08/2026): a barra
+     rola junto com a lista em vez de colar no topo, liberando altura de tela
+     para mais tarefas. */
+  .bar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;padding:13px 26px;
     background:rgba(243,240,235,.86);backdrop-filter:blur(9px);border-bottom:1px solid rgba(217,210,200,.6);margin-top:4px}
   .btn{font:600 13px var(--fonte);border:none;border-radius:9px;padding:8px 16px;cursor:pointer;transition:all .15s}
   .btn-p{background:var(--laranja);color:#3A2A1C}
