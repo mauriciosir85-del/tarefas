@@ -243,7 +243,7 @@
     <div class="mrow">
       <div class="mf"><label>Status</label><select id="m-status" onchange="toggleConcluido()">
         <option value="todo">A fazer</option><option value="doing">Em andamento</option>
-        <option value="blocked">Bloqueado</option><option value="done">Feito</option></select></div>
+        <option value="done">Feito</option><option value="blocked">On hold</option></select></div>
       <div class="mf"><label>Prioridade</label><select id="m-prioridade">
         <option value="baixa">Baixa</option><option value="media">Média</option>
         <option value="alta">Alta</option><option value="critica">Crítica</option></select></div>
@@ -277,10 +277,13 @@ const sb = window.supabase.createClient(SB_URL, SB_ANON,
 let TAREFAS={}, USER=null, _undo=[], _toastTimer=null, _downBackdrop=false;
 const PRIO={critica:['▲▲','Crítica'],alta:['▲','Alta'],media:['•','Média'],baixa:['▽','Baixa']};
 const PESO={critica:0,alta:1,media:2,baixa:3};
-const STATUS=['todo','doing','blocked','done'];
-const SLABEL={todo:'A fazer',doing:'Em andamento',blocked:'Bloqueado',done:'Feito'};
-const SCURTO={todo:'A fazer',doing:'Andamento',blocked:'Bloqueado',done:'Feito'};
-const TECLA={'1':'todo','2':'doing','3':'blocked','4':'done'};
+// A ordem deste array é a ordem das colunas na tela. 'blocked' continua sendo o
+// valor no banco (o check do schema só aceita todo/doing/blocked/done) — mudou
+// só o rótulo, para "On hold", e a posição, para depois de Feito.
+const STATUS=['todo','doing','done','blocked'];
+const SLABEL={todo:'A fazer',doing:'Em andamento',blocked:'On hold',done:'Feito'};
+const SCURTO={todo:'A fazer',doing:'Andamento',blocked:'On hold',done:'Feito'};
+const TECLA={'1':'todo','2':'doing','3':'done','4':'blocked'};
 let FOCO=(()=>{try{const v=localStorage.getItem('foco');return STATUS.includes(v)?v:null;}catch(e){return null;}})();
 const DIAS=['segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado','domingo'];
 const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
